@@ -303,7 +303,7 @@ function random_permutation(len_X::Int)::Permutation_Group
 end
 
 function compare_Frank_Henrik()
-    for len_X in [20,50,100,500,1000] # Length of permutation
+    for len_X in [10,20,50,100,500,1000,2000,5000] # Length of permutation
         for len_S in [3,5,10,20,50] # number of generators
             S = Vector{Permutation_Group}(undef, len_S)
             for i in 1:len_S
@@ -311,7 +311,11 @@ function compare_Frank_Henrik()
             end
             for t in 1:10
                 println("Frank ",len_X," ",len_S)
-                @time Frank(S, 5*len_S, 50)
+                if len_X < 50
+                    @time Frank(S, 5*len_S, (len_X)^3*Int(round(len_X)^2))
+                else
+                    println("-1")    
+                end
                 println("Henrik-Number_cycles ",len_X," ",len_S)
                 @time Henrik(S, 5*len_S, 5, 5*len_S, 2, 2, len_S, 0.05, number_cycles)
                 println("Henrik-number_fix_points ",len_X," ",len_S)
