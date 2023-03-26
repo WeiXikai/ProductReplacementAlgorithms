@@ -292,7 +292,7 @@ end
 function random_permutation(len_X::Int)::Permutation_Group
     ans = group_identity(len_X)
     for i in 1:(len_X-1)
-        j = randint(i+1,len_X)
+        j = randint(i,len_X)
         if i != j
             temp = ans.data[i]
             ans.data[i] = ans.data[j]
